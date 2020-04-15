@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>City List</title>
 	<link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,400i,500&display=swap" rel="stylesheet">
-	<link href="css/style1.css" rel="stylesheet" type="text/css" />
+	<link href="/css/style1.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/js.js"></script>
     <style>
@@ -15,7 +15,7 @@
 <div class="pagetop">
 	<div class="head">
 		<div class="wrap">
-			<a href="/" class="logo"><img src="img/logo_head.png" alt="" /></a>
+			<a href="/" class="logo"><img src="/img/logo_head.png" alt="" /></a>
 			<div class="search">
 				<input type="text" name="" value="" placeholder="Find a Hospital" />
 				<button></button>

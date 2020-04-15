@@ -3,7 +3,7 @@
 	<div class="foot">
 		<div class="wrap">
 			<div class="info">
-				<a href="/" class="logo"><img src="img/logo_footer.png" alt="" /></a>
+				<a href="/" class="logo"><img src="/img/logo_footer.png" alt="" /></a>
 				<p>Use of this website and any information 
 contained herein is governed 
 by the HospService User Agreement.</p>

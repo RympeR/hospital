@@ -117,7 +117,7 @@ by the readable content of a page when looking at its layout.</p>
                 $row_state = $res_state->fetch_assoc();
                 array_push($states[$row['STATE'][0]], $row['STATE']);
         }
-        echo "<tr><td><a href='county_p-".$row['STATE']."'>".$row['STATE']."</a></td><td>".$row_state["description"]."</td><tr>";
+        echo "<tr><td><a href='county_p.php?state=".$row['STATE']."'>".$row['STATE']."</a></td><td>".$row_state["description"]."</td><tr>";
         $k = 0;
         for ($i=0; $i < count($states); $i++) { 
             
@@ -128,7 +128,7 @@ by the readable content of a page when looking at its layout.</p>
 				echo "<h2>" . key($states) . "</h2>";
 				echo "<ul>";
                 foreach ($states[key($states)] as $key => $value) {
-                    echo " <li><a href='county_p-".$value ."'>".$states_full[$value] . "</a></li>";
+                    echo " <li><a href='county_p.php?state=".$value ."'>".$states_full[$value] . "</a></li>";
                 }
                 
 				echo "</ul>";
@@ -138,7 +138,7 @@ by the readable content of a page when looking at its layout.</p>
 				echo "<h2>" . key($states) . "</h2>";
 				echo "<ul>";
                 foreach ($states[key($states)] as $key => $value) {
-                    echo " <li><a href='county_p-".$value ."'>". $states_full[$value] . "</a></li>";
+                    echo " <li><a href='county_p.php?state=".$value ."'>". $states_full[$value] . "</a></li>";
                 }
                 
 				echo "</ul>";
@@ -149,7 +149,7 @@ by the readable content of a page when looking at its layout.</p>
 				echo "<h2>" . key($states) . "</h2>";
 				echo "<ul>";
                 foreach ($states[key($states)] as $key => $value) {
-                    echo " <li><a href='county_p-".$value ."'>". $states_full[$value] . "</a></li>";
+                    echo " <li><a href='county_p.php?state=".$value ."'>". $states_full[$value] . "</a></li>";
                 }
                 
 				echo "</ul>";

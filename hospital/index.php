@@ -32,7 +32,7 @@
 			<div class="main-right testimonials slider">
 
 				
-					<?php 
+				<?php 
 					$servername = "localhost";
 					$username = "admin_admin";
 					$password = "cJ9Mhri450";
@@ -46,107 +46,86 @@
 					if(!$conn->set_charset("utf8")){
 						echo "ошибка кодировки";
 					}
-						$sql_comment = "SELECT DISTINCT pharmacy, name, comment from comments_pharmacy limit 0,10";
+						$sql_comment = "SELECT DISTINCT pharmacy, name, comment, date_c from comments_pharmacy limit 0,10";
 
-       
+						$k = 0;
 						$res = $conn->query($sql);
 						$res_comment = $conn->query($sql_comment);
+						
 						while($row = $res_comment->fetch_assoc()){
 							$sql_hospital = "SELECT DISTINCT NAME, STATE, COUNTY, CITY from pharmacy where NAME='".$row['pharmacy']."';";
 							$res_link = $conn->query($sql_hospital);
-							$k = 0;
-							echo "<div class='slide'>";
-							// echo $sql_hospital;
-							while ($row_link = $res_link->fetch_assoc()){
-								
-								
 							
-						
-					?>
-					<div class="testimonial red">
-						<div class="author">
-							Ashley<?= $row['name'] ?>
-							<!-- <span class="date">25/02/2020</span> -->
-						</div>
-						<div class="name"></div>
-						<div class="stars">
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star"></a>
-							<a href="#" class="star"></a>
-							<a href="#" class="star"></a>
-						</div>
-						<p><?= $row['comment']?></p>
-						<?php 
-							echo "<a href='pharmacy_info.php?state=".$row_link['STATE']."&county=".$row_link['COUNTY']."&city=".$row_link['CITY']."&pharmacy=".$row_link['NAME']."'>"."Read full review".
-							"</a>";
-						?>
-						<!-- <a href="#" class="more">Read full review</a> -->
-					</div>
-					<?php 
+							// echo $sql_hospital;
+							while($row_link = $res_link->fetch_assoc()){
+
+								$k++;
+								if ($k%2==1){
+									echo "<div class='slide'>";
+									echo '<div class="testimonial red">'.
+									'<div class="author">'.
+									$row["name"].
+									'<span class="date">'.$row["date_c"].'</span>'.
+									'</div>'.
+									'<div class="name">'.$row_link['NAME'].'</div>
+									<div class="stars">
+										<a href="#" class="star full"></a>
+										<a href="#" class="star full"></a>
+										<a href="#" class="star"></a>
+										<a href="#" class="star"></a>
+										<a href="#" class="star"></a>
+									</div><p>
+									'.$row['comment'].'</p>';
+									echo "<a href='pharmacy_info.php?state=".$row_link['STATE']."&county=".
+										$row_link['COUNTY']."&city=".$row_link['CITY']."&pharmacy=".$row_link['NAME']."'>".
+										$row_link['NAME']."</a>";
+									echo "</div>";
+								}else if ($k%2==0){
+									echo '<div class="testimonial green">
+									<div class="author">'.
+									$row['name'].'
+									<span class="date">'.$row["date_c"].'</span></div>
+									<div class="name">'.$row_link['NAME'].'</div>
+									<div class="stars">
+										<a href="#" class="star full"></a>
+										<a href="#" class="star full"></a>
+										<a href="#" class="star full"></a>
+										<a href="#" class="star full"></a>
+										<a href="#" class="star"></a>
+									</div>
+									<p>'.$row['comment'].'</p>';
+									echo "<a href='pharmacy_info.php?state=".$row_link['STATE']."&county=".
+										$row_link['COUNTY']."&city=".$row_link['CITY']."&pharmacy=".$row_link['NAME']."'>".
+										$row_link['NAME']."</a>";
+									echo "</div></div><div class='cl'></div>";
+										// echo "</div>";
+							
+							
+							
+								}
+							// echo $k;
+							if ($k==4){
+							break;
 							}
-							echo "</div>";
-						}?>
-					<!-- <div class="testimonial green">
-						<div class="author">
-							Ashley
-							<span class="date">25/02/2020</span>
-						</div>
-						<div class="name">Hospital</div>
-						<div class="stars">
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star"></a>
-						</div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu posuere diam. Ut interdum suscipit tortor, eget fermentum lorem</p>
-						<a href="#" class="more">Read full review</a>
-					</div> -->
-					<div class="cl"></div>
-				</div>
-				<div style="display: none" class="slide">
-					<div class="testimonial red">
-						<div class="author">
-							Ashley
-							<span class="date">25/02/2020</span>
-						</div>
-						<div class="name">Hospital</div>
-						<div class="stars">
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star"></a>
-							<a href="#" class="star"></a>
-							<a href="#" class="star"></a>
-						</div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu posuere diam. Ut interdum suscipit tortor, eget fermentum lorem</p>
-						<a href="#" class="more">Read full review</a>
-					</div>
-					<div class="testimonial green">
-						<div class="author">
-							Ashley
-							<span class="date">25/02/2020</span>
-						</div>
-						<div class="name">Hospital</div>
-						<div class="stars">
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star full"></a>
-							<a href="#" class="star"></a>
-						</div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu posuere diam. Ut interdum suscipit tortor, eget fermentum lorem</p>
-						<a href="#" class="more">Read full review</a>
-					</div>
-					<div class="cl"></div>
-				</div>
+							
+						}
+						// echo $k;
+				}
+				if ($k%2 == 1){
+					echo "</div>";
+				}
+					?>
+						
 			</div>
-			<div class="cl"></div>
-		
+				
+		</div>
+		<div class="cl"></div>
+		<div class="wrap">
 			<h2>More Info About <b>Name Site</b></h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </p>
 			<a href="#" class="sub-btn">Read More</a>
 		</div>
+	</div>	
 	</div>
 
 
@@ -161,7 +140,7 @@
 	const mySiema_m = new Siema({selector: '.slider',onChange: printSlideIndex});
 
 	Siema.prototype.addPagination = function() {
-	  for (let i = 0; i < this.innerElements.length; i++) {
+	  for (let i = 0; i < (this.innerElements.length<=3?3:2); i++) {
 		const btn = document.createElement('button');
 		btn.addEventListener('click', () => this.goTo(i));
 		this.selector.appendChild(btn);

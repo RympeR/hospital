@@ -101,5 +101,16 @@ create table pills(
 	amount int default 0,
 	price int default 0
 );
-
+create table comments_pill( 
+	id int AUTO_INCREMENT PRIMARY KEY, 
+	pill varchar(50), 
+	name varchar(50) not null, 
+	email varchar(50) not null, 
+	ip varchar(50) not null, 
+	user_agent varchar(50) not null, 
+	comment varchar(100) not null );
 INSERT INTO pills (pill_name, city) VALUES('test','ANCHORAGE');
+
+alter TABLE comments_pill add COLUMN date_c date ;
+alter TABLE comments_pharmacy add COLUMN date_c date ;
+alter TABLE comments add COLUMN date_c date ;

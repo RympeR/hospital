@@ -36,8 +36,8 @@ by the readable content of a page when looking at its layout.</p>
                 $res = $conn->query($sql);
 
                 while($row = $res->fetch_assoc()){
-                    echo '<li><a href= "pharmacy_info.php?pharmacy='.$row['NAME']."&state=".$_GET['state']."&county=".
-                    $_GET['county']."&city=".$_GET['city'].'">'.$row['NAME']."</a></li>";
+                    echo '<li><a href= "pharmacy_info-'.$row['NAME']."-".$_GET['state']."-".
+                    $_GET['county']."-".$_GET['city'].'.html">'.$row['NAME']."</a></li>";
                 }
 
                 echo "</ul><br>";
@@ -50,8 +50,8 @@ by the readable content of a page when looking at its layout.</p>
                 $res = $conn->query($sql);
 
                 while($row = $res->fetch_assoc()){
-                    echo '<li><a href="hospital_info.php?hospital='.$row['hospital_name']."&state=".$_GET['state']."&county=".
-                    $_GET['county']."&city=".$_GET['city'].'">'.$row['hospital_name']."</a></li>";
+                    echo '<li><a href="hospital_info-'.$row['hospital_name']."-".$_GET['state']."-".
+                    $_GET['county']."-".$_GET['city'].'.html">'.$row['hospital_name']."</a></li>";
                 }
                 $sql_state = "SELECT DISTINCT description from city_description_pharmacy where city='".$_GET["state"]."' limit 0,1";
                 $res_state = $conn->query($sql_state);
@@ -70,7 +70,7 @@ by the readable content of a page when looking at its layout.</p>
             
             <?php 
             while ($row = $res_pill->fetch_assoc()){?>
-                <li><a href="pill.php?pill=<?= $row["pill_name"]; ?>&city=<?=$_GET['city']?>"><?= $row["pill_name"];?></a></li>
+                <li><a href="pill-<?= $row["pill_name"]; ?>-<?=$_GET['city']?>.html"><?= $row["pill_name"];?></a></li>
         <?php 
             }?>
             </ul>

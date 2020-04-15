@@ -1,0 +1,21 @@
+    Options +FollowSymLinks -MultiViews
+    RewriteEngine On
+    AddDefaultCharset utf-8
+    RewriteBase /
+    Options -Indexes
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteCond %{REQUEST_FILENAME} !-l
+
+    
+    #RewriteRule ^(.*)\.html$ /index.php [QSA,NC]
+    RewriteRule ^states\.html$ /state_p.php [QSA,NC]
+    RewriteRule ^county-([0-9a-zA-Z\%]+)\.html$ county_p.php?state=$1 [QSA,NC]
+    RewriteRule ^city-([0-9a-z%A-Z]+)-([0-9a-z%A-Z]+)$ city_p.php?state=$2&county=$1 [NC,QSA]
+
+    
+    
+    RewriteRule ^pharmacy-([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)\.html$ pharmacy_p.php?state=$2&county=$1&city=$3 [NC,QSA]
+    RewriteRule ^pharmacy_info-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ pharmacy_info.php?state=$2&county=$3&hospital=$1&city=$4&pharmacy=$1 [NC,QSA]
+    RewriteRule ^hospital_info-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ hospital_info.php?state=$2&county=$3&hospital=$1&city=$4 [NC,QSA]
+    RewriteRule ^pill-([A-Za-z0-9%\s/-]+)-([A-Za-zs0-9%\s/-]+)\.html$ pill.php?pill=$1&city=$2 [NC,QSA]

@@ -16,6 +16,19 @@
             table {
                 border-collapse: collapse;
                 border-spacing: 0;
+                font-size: 16px;
+                table-layout: fixed;
+            }
+            .coln1{width:10px;}
+            .coln2{width:40px;}
+            .left{
+                font-family: 'Roboto';
+                font-weight: 500;
+                font-size: 16px;
+            }
+            .right{
+                font-family: 'Roboto';   
+                font-size: 16px;
             }
             .table_holder {
                 -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
@@ -31,6 +44,12 @@
             .input_field_form{
                 box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.45);
             }
+            .comment_form h3 {
+
+                font-weight : 400;
+
+            }
+            
     </style>
 	<div class="big-name">
 		<div class="wrap">
@@ -42,78 +61,80 @@
 
     <div class="wrap">
 		        <div class="table_holder">  
-<?php
-        
-        $servername = "localhost";
-        $username = "admin_admin";
-        $password = "cJ9Mhri450";
-        $dbname = "admin_hospital";
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if ($conn->connect_error){
-            die("Connection error: ");
-        }
-        if(!$conn->set_charset("utf8")){
-            echo "ошибка кодировки";
-        }
-        $sql = "SELECT *  from pharmacy where STATE='".
-                $_GET['state']."' and COUNTY='".
-                $_GET['county']."' and CITY='".$_GET['city']."' and NAME='".$_GET['pharmacy']."';";
-        $sql1 = "SELECT * FROM comments_pharmacy where pharmacy ='".$_GET['pharmacy']."';";
-        // echo $sql;
-        $res = $conn->query($sql);
-        echo "<table border='1'>";
-        while($row = $res->fetch_assoc()){
-                echo "<tr>".
-                    "<td>Pharmacy Name</td>".
-                    "<td id='token'>".$row['NAME']."</td></tr>".
-                    "<tr>". "<td>Address</td>".
-                    "<td>".$row['ADDRESS']."</td></tr>".
-                    "<tr>". "<td>ZIP</td>".
-                    "<td>".$row['ZIP']."</td></tr>".
-                    "<tr>". "<td>ZIP4</td>".
-                    "<td>".$row['ZIPP4']."</td></tr>".
-                    "<tr>". "<td>FIPS</td>".
-                    "<td>".$row['FIPS']."</td></tr>".
-                    // "<tr>". "<td>CONTDATE</td>".
-                    // "<td>".$row['CONTDATE']."</td></tr>".
-                    // "<tr>". "<td>CONTHOW</td>".
-                    // "<td>".$row['CONTHOW']."</td></tr>".
-                    // "<tr>". "<td>GEODATE</td>".
-                    // "<td>".$row['GEODATE']."</td></tr>".
-                    // "<tr>". "<td>GEOHOW</td>".
-                    // "<td>".$row['GEOHOW']."</td></tr>".
-                    "<tr>". "<td>HSIPTHEMES</td>".
-                    "<td>".$row['HSIPTHEMES']."</td></tr>".
-                    "<tr>". "<td>NAICSCODE</td>".
-                    "<td>".$row['NAICSCODE']."</td></tr>".
-                    "<tr>". "<td>NAICSCDESCR</td>".
-                    "<td>".$row['NAICSCDESCR']."</td></tr>".
-                    // "<tr>". "<td>X</td>".
-                    // "<td>".$row['X']."</td></tr>".
-                    // "<tr>". "<td>Y</td>".
-                    // "<td>".$row['Y']."</td></tr>".
-                    "<tr>". "<td>ST_VENDOR</td>".
-                    "<td>".$row['ST_VENDOR']."</td></tr>".
-                    "<tr>". "<td>ST_VERSION</td>".
-                    "<td>".$row['ST_VERSION']."</td></tr>".
-                    // "<tr>". "<td>GEOPREC</td>".
-                    // "<td>".$row['GEOPREC']."</td></tr>".
-                    "<tr>". "<td>PHONELOC</td>".
-                    "<td>".$row['PHONELOC']."</td></tr>".
-                    "<tr>". "<td>QC_QA</td>".
-                    "<td>".$row['QC_QA']."</td></tr>".
-                    "<tr>". "<td>WEBSITE</td>".
-                    "<td>".$row['WEBSITE']."</td></tr>".
-                    "<tr>". "<td>NPI</td>".
-                    "<td>".$row['NPI']."</td></tr>".
-                    // "<tr>". "<td>ENT_TYPE</td>".
-                    // "<td>".$row['ENT_TYPE']."</td></tr>".
-                    "<tr>". "<td>ORGAN_NAME</td>".
-                    "<td>".$row['ORGAN_NAME']."</td></tr>";
-                    
-        }
+        <?php
+            define('SITE_KEY', '6LfJYOkUAAAAAM6JHJ-MbRZTapj7wB68pbutQCwn');
+            define('SECRET_KEY', '6LfJYOkUAAAAAOTKrQnRx7iaDBgg9OBgyEmn5NJo');
+            $servername = "localhost";
+            $username = "admin_admin";
+            $password = "cJ9Mhri450";
+            $dbname = "admin_hospital";
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            if ($conn->connect_error){
+                die("Connection error: ");
+            }
+            if(!$conn->set_charset("utf8")){
+                echo "ошибка кодировки";
+            }
+            $sql = "SELECT *  from pharmacy where STATE='".
+                    $_GET['state']."' and COUNTY='".
+                    $_GET['county']."' and CITY='".$_GET['city']."' and NAME='".$_GET['pharmacy']."';";
+            $sql1 = "SELECT * FROM comments_pharmacy where pharmacy ='".$_GET['pharmacy']."';";
+            // echo $sql;
+            $res = $conn->query($sql);
+            echo "<table border='1'>".
+            "<col class='coln1'><col class='coln2'>";
+            while($row = $res->fetch_assoc()){
+                    echo "<tr>".
+                        "<td class='left'>Pharmacy Name</td>".
+                        "<td id='token' class='right'>". ucfirst(strtolower($row['NAME']))."</td></tr>".
+                        "<tr>". "<td class='left'>Address</td>".
+                        "<td class='right'>".$row['ADDRESS']."</td></tr>".
+                        "<tr>". "<td class='left'>ZIP</td>".
+                        "<td class='right'>".$row['ZIP']."</td></tr>".
+                        "<tr>". "<td class='left'>ZIP4</td>".
+                        "<td class='right'>".$row['ZIPP4']."</td></tr>".
+                        "<tr>". "<td class='left'>FIPS</td>".
+                        "<td class='right'>".$row['FIPS']."</td></tr>".
+                        // "<tr>". "<td>CONTDATE</td>".
+                        // "<td>".$row['CONTDATE']."</td></tr>".
+                        // "<tr>". "<td>CONTHOW</td>".
+                        // "<td>".$row['CONTHOW']."</td></tr>".
+                        // "<tr>". "<td>GEODATE</td>".
+                        // "<td>".$row['GEODATE']."</td></tr>".
+                        // "<tr>". "<td>GEOHOW</td>".
+                        // "<td>".$row['GEOHOW']."</td></tr>".
+                        "<tr>". "<td class='left'>HSIPTHEMES</td>".
+                        "<td class='right'>".ucfirst(strtolower($row['HSIPTHEMES']))."</td></tr>".
+                        "<tr>". "<td class='left'>NAICSCODE</td>".
+                        "<td class='right'>".$row['NAICSCODE']."</td></tr>".
+                        "<tr>". "<td class='left'>NAICSCDESCR</td>".
+                        "<td class='right'>".$row['NAICSCDESCR']."</td></tr>".
+                        // "<tr>". "<td>X</td>".
+                        // "<td>".$row['X']."</td></tr>".
+                        // "<tr>". "<td>Y</td>".
+                        // "<td>".$row['Y']."</td></tr>".
+                        "<tr>". "<td class='left'>ST_VENDOR</td>".
+                        "<td class='right'>".$row['ST_VENDOR']."</td></tr>".
+                        "<tr>". "<td class='left'>ST_VERSION</td>".
+                        "<td class='right'>".$row['ST_VERSION']."</td></tr>".
+                        // "<tr>". "<td>GEOPREC</td>".
+                        // "<td>".$row['GEOPREC']."</td></tr>".
+                        "<tr>". "<td class='left'>PHONELOC</td>".
+                        "<td class='right'>".$row['PHONELOC']."</td></tr>".
+                        "<tr>". "<td class='left'>QC_QA</td>".
+                        "<td class='right'>".$row['QC_QA']."</td></tr>".
+                        "<tr>". "<td class='left'>WEBSITE</td>".
+                        "<td>".strtolower($row['WEBSITE'])."</td></tr>".
+                        "<tr>". "<td class='left'>NPI</td>".
+                        "<td class='right'>".$row['NPI']."</td></tr>".
+                        // "<tr>". "<td>ENT_TYPE</td>".
+                        // "<td>".$row['ENT_TYPE']."</td></tr>".
+                        "<tr>". "<td class='left'>ORGAN_NAME</td>".
+                        "<td class='right'>".$row['ORGAN_NAME']."</td></tr>";
+                        
+            }
 
-        echo "</table>";
+            echo "</table>";
         ?>
         </div>
     </div>
@@ -149,6 +170,7 @@
         </div>
     </div>
             <div class="comments">
+                <div class="wrap">
 				<h2 class="title">Comment about <b>Pharmacy</b></h2>
         <?php
         // if($conn->query($sql1)){
@@ -161,7 +183,7 @@
                 <div class="comment">
                 <div class="author">
                     <?=$row["name"]?>- <?=$row["email"]?>
-                    <span class="date">25/02/2020</span>
+                    <span class="date"><?=$row["date_c"]?></span>
                 </div>
                 <div class="name">Pharmacy</div>
                 <div class="stars">
@@ -187,17 +209,26 @@
 
                 <form onsubmit="return false" id="form" name="form" method="POST">
                     <input id ="hide" class="input_field_form" name="hide" type="hidden" value="">
-                    <h3>Name</>
+                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                    <h3>Name</h3>
                     <input type="text" class="input_field_form" name="name" placeholder="Name"/>
                     <h3>Email</h3>
                     <input type="text" class="input_field_form" name="email" placeholder="Email"/>
                     <h3>Comment</h3>
                     <input type="text" class="input_field_form"  name="comment" placeholder="Comment"/>
-                    <input type="button" class="sub-btn"  value="send comment" onclick="send_data_form();" name="SubmitButton"/>
+                    <input type="button" class="sub-btn"  value="Send comment" onclick="send_data_form();" name="SubmitButton"/>
                     </form>    
                     <br>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                                
+                    <script src="https://www.google.com/recaptcha/api.js?render=<?= SITE_KEY ?>"></script>
+                    <script>
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('<?= SITE_KEY ?>', {action: 'homepage'}).then(function(token) {
+                                // console.log(token);
+                                document.getElementById('g-recaptcha-response').value = token;
+                            });
+                        });
+                    </script>       
                     <script>
                         window.onload = function(){
                             document.getElementById("hide").value = document.getElementById("token").textContent;
@@ -210,8 +241,9 @@
                                 type: "POST",
                                 data: fd,
                                 success: function (data) {
-                                    // alert(data);
-                                    document.location.reload();
+                                    alert("Your comment successfully added");
+                                   
+                                    // document.location.reload();
                                         },
                                 processData: false, 
                                 contentType: false   
@@ -219,7 +251,7 @@
                         }
                     </script>
 			</div>
-
+            </div>
             </div>
     </div>
     <?php 

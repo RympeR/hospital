@@ -1,6 +1,7 @@
 
-	<?php 
+<?php 
 	require_once('header.php');
+
 ?>
 	<div class="big-name">
 		<div class="wrap">
@@ -34,8 +35,8 @@ by the readable content of a page when looking at its layout.</p>
                                 $sql_county = "SELECT DISTINCT description from county_description_pharmacy where county='".$row["COUNTY"]."' limit 0,1";
                                 $res_county = $conn->query($sql_county);
                                 $row_county = $res_county->fetch_assoc();
-                                echo "<li><a href='city_p.php?county=".$row['COUNTY']."&state=".$_GET['state']."'>".
-                                $row['COUNTY']."</a></td><td>".$row_county["description"]."</li>";
+                                echo "<li><a href='/".$row['COUNTY']."-".$_GET['state'].".html'>".
+                                $row['COUNTY']."</a>";
 							}
 							$sql_state = "SELECT DISTINCT description from state_description_pharmacy where state='".$_GET["state"]."' limit 0,1";
 							$res_state = $conn->query($sql_state);

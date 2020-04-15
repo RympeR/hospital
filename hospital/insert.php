@@ -12,10 +12,9 @@
      if(!$conn->set_charset("utf8")){
          echo "ошибка кодировки";
      }
-     $sql1 = "INSERT INTO comments_pharmacy(pharmacy,name,email,ip,user_agent,comment,date_c) values('".$_POST['hide']."','".$_POST['name']."','".$_POST['email']."','".$_SERVER['REMOTE_ADDR']."','".
+     $sql1 = "INSERT INTO comments(hospital,name,email,ip,user_agent,comment,date_c) values('".$_POST['hide']."','".$_POST['name']."','".$_POST['email']."','".$_SERVER['REMOTE_ADDR']."','".
                                                                             $_SERVER['HTTP_USER_AGENT']."','".$_POST['comment']."','".date("Y-m-d")."');";
-    
-     if ($_POST){
+       if ($_POST){
          function getCaptcha($secretKey){
             $Response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='. SECRET_KEY ."&response={$secretKey}");
             $Return = json_decode($Response);
@@ -25,8 +24,7 @@
          $Return = getCaptcha($_POST['g-recaptcha-response']);
         //  var_dump($Return);
 
-         if ($Return->success == true && $Return->score > 0.5){
-    
+         if ($Return->success == true && $Return->score > 0.5){                                                                      
                 if ($conn->query($sql1) === TRUE) {
                     // echo "New record created successfully";
                 }

@@ -1,13 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Search</title>
-	<link href="https://fonts.googleapis.com/css?family=Raleway:700|Roboto:300,400,400i,500&display=swap" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/js.js"></script>
+<?php
+    require_once('header.php');
+?>
     <style> 
         .table_holder table tr td {
             color: #303030;
@@ -23,6 +16,19 @@
             table {
                 border-collapse: collapse;
                 border-spacing: 0;
+                font-size: 16px;
+                table-layout: fixed;
+            }
+            .coln1{width:10px;}
+            .coln2{width:40px;}
+            .left{
+                font-family: 'Roboto';
+                font-weight: 500;
+                font-size: 16px;
+            }
+            .right{
+                font-family: 'Roboto';   
+                font-size: 16px;
             }
             .table_holder {
                 -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
@@ -35,29 +41,17 @@
             div {
                 display: block;
             }
+            .input_field_form{
+                box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.45);
+            }
+            .comment_form h3 {
+ 
+                font-weight : 400;
+
+            }
+            
+            
     </style>
-</head>
-<body>
-<div class="pagetop">
-	<div class="head">
-		<div class="wrap">
-			<a href="#" class="logo"><img src="img/logo_head.png" alt="" /></a>
-			<div class="search">
-				<input type="text" name="" value="" placeholder="Find a Hospital" />
-				<button></button>
-			</div>
-			<div class="menu">
-				<a href="#">Report</a>
-				<span class="sep">|</span>
-				<a href="#">Help & Info</a>
-				<span class="sep">|</span>
-				<a href="#">About Us</a>
-			</div>
-			
-			<div class="cl"></div>
-		</div>
-	</div>
-	
 	<div class="big-name">
 		<div class="wrap">
 			<h1>Lorem Ipsum is</h1>
@@ -66,7 +60,8 @@
 		</div>
     </div>  
     <?php
-        
+        define('SITE_KEY', '6LfJYOkUAAAAAM6JHJ-MbRZTapj7wB68pbutQCwn');
+        define('SECRET_KEY', '6LfJYOkUAAAAAOTKrQnRx7iaDBgg9OBgyEmn5NJo');
         $servername = "localhost";
         $username = "admin_admin";
         $password = "cJ9Mhri450";
@@ -82,29 +77,104 @@
         $res = $conn->query($sql);
         $row = $res->fetch_assoc();
     ?>
-    <div>
-        <h1><?= $_GET['pill']?></h1>
-        <div >
-            <h4>AMOUNT</h4>
-                <?php
-                   echo $row["amount"];
-                ?>    
-            </div>
-        </div>
-        <div >
-            <h4>PRICE</h4>
-            <p>
-                <?php
-                    echo $row["price"];
-                ?>
-            </p>
-            </div>
-        </div>
-        <div><h4>Description</h4>
-            <?php
-                echo $row["description"];
-            ?>    
+    <div class="wrap">
+		<div class="table_holder">  
+            <?php 
+                echo "<table border='1'>".
+                "<col class='coln1'><col class='coln2'>";
+                echo "<tr><td class='left'>Pill name</td><td id='token' class='right'>".$_GET['pill']."</td></tr>";
+                echo "<tr><td class='left'>Amount</td><td class='right'>".$row['amount']."</td></tr>";
+                echo "<tr><td class='left'>Price</td><td class='right'>".$_GET['price']."</td></tr>";
+                echo "<tr><td class='left'>Description</td><td class='right'>".$_GET['description']."</td></tr>";
+                echo "</table>";
+            ?>
+           
         </div>
     </div>
-</body>
-</html>
+    <br><br><br>
+    <div class="comments">
+        <div class="wrap">
+				<h2 class="title">Comment about <b><?= $_GET['pill'] ?></b></h2>
+                <?php 
+                $sql1 = "SELECT * FROM comments_pill where pill ='".$_GET['pill']."';";
+        // if($conn->query($sql1)){
+        try {
+            $res1 = $conn->query($sql1);
+
+            while($row = $res1->fetch_assoc()){?>
+				<div class="comment">
+					<div class="author">
+						<?=$row["name"]?>- <?=$row["email"]?>
+						<span class="date"><?=$row["date_c"]?></span>
+					</div>
+					<div class="name"><?= $_GET['pill']?></div>
+					
+					<p><?=$row["comment"]?></p>
+				
+				</div>
+				<?php
+                        }
+                        }catch (Exception $e){
+                            echo $e;
+                        }
+                ?>
+		
+		
+			<div class="comment_form">
+				<h3>Write your comment about <b><?= $_GET['pill'] ?></b>...</h3>
+
+                <form onsubmit="return false" id="form" name="form" method="POST">
+                    <input id ="hide" name="hide" type="hidden" value="">
+                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                    <h3>Name</h3>
+                    <input type="text" class="input_field_form" name="name" placeholder="Name"/>
+                    <h3>Email</h3>
+                    <input type="text" class="input_field_form" name="email" placeholder="Email"/>
+                    <h3>Comment</h3>
+                    <input type="text" class="input_field_form" name="comment" placeholder="Comment"/>
+                    <input type="button" class="sub-btn" id="send-btn"  value="Send comment" onclick="send_data_form();" name="SubmitButton"/>
+                   <!-- js-скрипт гугл капчи -->
+
+                </form>    
+               
+                <script>
+                   
+                </script>
+                    <br>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                    <script src="https://www.google.com/recaptcha/api.js?render=<?= SITE_KEY ?>"></script>
+                    <script>
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('<?= SITE_KEY ?>', {action: 'homepage'}).then(function(token) {
+                                // console.log(token);
+                                document.getElementById('g-recaptcha-response').value = token;
+                            });
+                        });
+                    </script>    
+                    <script>
+                        window.onload = function(){
+                            document.getElementById("hide").value = document.getElementById("token").textContent;
+                        }
+                        function send_data_form(){
+                            var fd = new FormData(document.getElementById("form"));
+
+                                $.ajax({
+                                    url: "/insert_pill.php",
+                                    type: "POST",
+                                    data: fd,
+                                    success: function (data) {
+                                            alert(data);
+                                            // document.location.reload();
+                                            },
+                                    processData: false, 
+                                    contentType: false   
+                                    });;
+                            
+                        }
+                    </script>
+            </div>
+            </div>
+        </div>
+    </div><?php 
+	require_once('footer.php');
+?>
