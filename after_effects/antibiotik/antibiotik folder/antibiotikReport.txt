@@ -1,0 +1,40 @@
+Report created: 
+	12.04.2020	15:59:51
+
+Project name: antibiotik.aep
+
+Source files collected to: 
+	C:\Users\georg\OneDrive\Рабочий стол\antibiotik folder
+
+Source files collected: All
+
+Collected comps:  
+	antibiotik
+	Couplet
+	
+Number of collected files:  2
+
+Size of collected files:  7,7 MB
+
+Collected source files: 
+	C:\Users\georg\OneDrive\Рабочий стол\Alium_antibiotuik_-9lufs_master.mp3
+	C:\Users\georg\OneDrive\Рабочий стол\heart.png
+	
+Rendering plug-ins:
+	Classic 3D
+	
+Effects used:  4
+
+Effect:  Curves
+	
+Effect:  Gradient Ramp
+	
+Effect:  Particular
+	
+Effect:  Tint
+	
+
+Layer:  Text Layer
+	External dependencies:  
+		Font family: “Tahoma”, Font style: “Regular”
+

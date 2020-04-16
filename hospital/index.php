@@ -76,8 +76,8 @@
 										<a href="#" class="star"></a>
 									</div><p>
 									'.$row['comment'].'</p>';
-									echo "<a href='pharmacy_info.php?state=".$row_link['STATE']."&county=".
-										$row_link['COUNTY']."&city=".$row_link['CITY']."&pharmacy=".$row_link['NAME']."'>".
+									echo "<a href='pharmacy-".$row_link['STATE']."-".
+										$row_link['COUNTY']."-".$row_link['CITY']."-".$row_link['NAME'].".html'>".
 										$row_link['NAME']."</a>";
 									echo "</div>";
 								}else if ($k%2==0){
@@ -94,8 +94,8 @@
 										<a href="#" class="star"></a>
 									</div>
 									<p>'.$row['comment'].'</p>';
-									echo "<a href='pharmacy_info.php?state=".$row_link['STATE']."&county=".
-										$row_link['COUNTY']."&city=".$row_link['CITY']."&pharmacy=".$row_link['NAME']."'>".
+									echo "<a href='pharmacy-".$row_link['STATE']."-".
+										$row_link['COUNTY']."-".$row_link['CITY']."-".$row_link['NAME'].".html'>".
 										$row_link['NAME']."</a>";
 									echo "</div></div><div class='cl'></div>";
 										// echo "</div>";

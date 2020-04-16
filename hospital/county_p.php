@@ -35,7 +35,7 @@ by the readable content of a page when looking at its layout.</p>
                                 $sql_county = "SELECT DISTINCT description from county_description_pharmacy where county='".$row["COUNTY"]."' limit 0,1";
                                 $res_county = $conn->query($sql_county);
                                 $row_county = $res_county->fetch_assoc();
-                                echo "<li><a href='/".$row['COUNTY']."-".$_GET['state'].".html'>".
+                                echo "<li><a href='/".$_GET['state']."-".$row['COUNTY'].".html'>".
                                 $row['COUNTY']."</a>";
 							}
 							$sql_state = "SELECT DISTINCT description from state_description_pharmacy where state='".$_GET["state"]."' limit 0,1";

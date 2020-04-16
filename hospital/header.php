@@ -21,7 +21,7 @@
 				<button></button>
 			</div>
 			<div class="menu">
-				<a href="state_p.php">States</a>
+				<a href="states.html">States</a>
 				<span class="sep">|</span>
 				<a href="text.php">Help & Info</a>
 				<span class="sep">|</span>

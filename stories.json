@@ -1,0 +1,10 @@
+[
+    {
+        "story": "Once upon a time a %s  ate a %s and felt vey %s. It was a %s dat for all good %s",
+        "prompt": ["a name", "a thing","another feeling", "another thing", 'some thing']
+    },
+    {
+        "story": "Once upon a time a %s  ate a %s and felt vey %s. It was a %s ",
+        "prompt": ["a thing", "a name","nothing", "another nothing"]
+    }
+]

@@ -10,12 +10,12 @@
     
     #RewriteRule ^(.*)\.html$ /index.php [QSA,NC]
     RewriteRule ^states\.html$ /state_p.php [QSA,NC]
-    RewriteRule ^county-([0-9a-zA-Z\%]+)\.html$ county_p.php?state=$1 [QSA,NC]
-    RewriteRule ^city-([0-9a-z%A-Z]+)-([0-9a-z%A-Z]+)$ city_p.php?state=$2&county=$1 [NC,QSA]
+    RewriteRule ^([0-9a-zA-Z\%]+)\.html$ county_p.php?state=$1 [QSA,NC]
+    RewriteRule ^([0-9a-z%A-Z]+)-([0-9a-z%A-Z]+)\.html$ city_p.php?state=$1&county=$2 [NC,QSA]
 
     
     
-    RewriteRule ^pharmacy-([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)\.html$ pharmacy_p.php?state=$2&county=$1&city=$3 [NC,QSA]
-    RewriteRule ^pharmacy_info-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ pharmacy_info.php?state=$2&county=$3&hospital=$1&city=$4&pharmacy=$1 [NC,QSA]
-    RewriteRule ^hospital_info-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ hospital_info.php?state=$2&county=$3&hospital=$1&city=$4 [NC,QSA]
+    RewriteRule ^([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)\.html$ pharmacy_p.php?state=$1&county=$2&city=$3 [NC,QSA]
+    RewriteRule ^pharmacy-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ pharmacy_info.php?state=$1&county=$2&city=$3&pharmacy=$4 [NC,QSA]
+    RewriteRule ^hospital-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ hospital_info.php?state=$1&county=$2&hospital=$4&city=$3 [NC,QSA]
     RewriteRule ^pill-([A-Za-z0-9%\s/-]+)-([A-Za-zs0-9%\s/-]+)\.html$ pill.php?pill=$1&city=$2 [NC,QSA]
