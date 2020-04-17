@@ -1,7 +1,7 @@
 <?php
     function insert($range, $arr){
         $sql_input = "";
-        $columns = array("hospital_name", "address_","city",
+        $columns = array("fid", "hospital_name", "address_","city",
         "state_","zip_code","county_name", "phone_number",
         "hospital_type", "hosp_ownership", "emerg_services", "EHRs_criteria",
         "rating", "rating_footnote", "mortality_comparsion", "mortality_footnote",
@@ -10,7 +10,7 @@
         "effectiveness_footnote",  "timeliness_comparsion", "timeliness_footnote", 
         "efficient_comparsion", "efficient_footnote", "location","coords");
 
-        if (count($arr)<26){
+        if (count($arr)<27){
             if (preg_match('/\(\d*.\d*, [-]*\d*.\d*\)/', $arr[$range-1])){
                 
                 $sql_input = "INSERT INTO hospital_info(".join(",",array_slice($columns, 0, $range-1)).',coords'.")".
@@ -58,7 +58,7 @@
                 continue;
             }
             if(!empty($curr) && $curr!='"'){
-                $columns = array("hospital_name", "address_","city",
+                $columns = array("fid", "hospital_name", "address_","city",
                 "state_","zip_code","county_name", "phone_number",
                 "hospital_type", "hosp_ownership", "emerg_services", "EHRs_criteria",
                 "rating", "rating_footnote", "mortality_comparsion", "mortality_footnote",
@@ -67,9 +67,9 @@
                 "effectiveness_footnote",  "timeliness_comparsion", "timeliness_footnote", 
                 "efficient_comparsion", "efficient_footnote", "location","coords");
                 if (count(explode('::', $curr)) >2 ){
-                    if (count(explode('::', $curr)) < $min)
-                        $min = count(explode('::', $curr));
-                    if (count(explode('::', $curr)) <=27){
+                    // if (count(explode('::', $curr)) < $min)
+                    //     $min = count(explode('::', $curr));
+                    if (count(explode('::', $curr)) <=28){
                         $arr = explode('::', $curr);
                         $range = count(explode('::', $curr));
                         if ($conn->query(insert($range, $arr)) === TRUE) {
@@ -101,5 +101,4 @@
         echo "error0";
     }
     
-?>
-
+// ?>

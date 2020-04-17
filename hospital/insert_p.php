@@ -12,8 +12,8 @@
      if(!$conn->set_charset("utf8")){
          echo "ошибка кодировки";
      }
-     $sql1 = "INSERT INTO comments_pharmacy(pharmacy,name,email,ip,user_agent,comment,date_c) values('".$_POST['hide']."','".$_POST['name']."','".$_POST['email']."','".$_SERVER['REMOTE_ADDR']."','".
-                                                                            $_SERVER['HTTP_USER_AGENT']."','".$_POST['comment']."','".date("Y-m-d")."');";
+     $sql1 = "INSERT INTO comments_pharmacy(pharmacy,name,email,ip,user_agent,comment,date_c, id_pharm) values('".$_POST['hide']."','".$_POST['name']."','".$_POST['email']."','".$_SERVER['REMOTE_ADDR']."','".
+                                                                            $_SERVER['HTTP_USER_AGENT']."','".$_POST['comment']."','".date("Y-m-d")."',".$_POST['pharm_id'].");";
     
      if ($_POST){
          function getCaptcha($secretKey){

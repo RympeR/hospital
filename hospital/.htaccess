@@ -13,9 +13,9 @@
     RewriteRule ^([0-9a-zA-Z\%]+)\.html$ county_p.php?state=$1 [QSA,NC]
     RewriteRule ^([0-9a-z%A-Z]+)-([0-9a-z%A-Z]+)\.html$ city_p.php?state=$1&county=$2 [NC,QSA]
 
+    #^(['A-Za-z0-9%\s-]+):
     
-    
-    RewriteRule ^([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)-([A-Za-z0-9%\s-]+)\.html$ pharmacy_p.php?state=$1&county=$2&city=$3 [NC,QSA]
-    RewriteRule ^pharmacy-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ pharmacy_info.php?state=$1&county=$2&city=$3&pharmacy=$4 [NC,QSA]
-    RewriteRule ^hospital-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)-([A-Za-z0-9%\s/-]+)\.html$ hospital_info.php?state=$1&county=$2&hospital=$4&city=$3 [NC,QSA]
-    RewriteRule ^pill-([A-Za-z0-9%\s/-]+)-([A-Za-zs0-9%\s/-]+)\.html$ pill.php?pill=$1&city=$2 [NC,QSA]
+    RewriteRule ^([A-Za-z0-9%\s]+)-([A-Za-z0-9%\s]+)-([A-Za-z0-9%\s\-]+)\.html$ pharmacy_p.php?state=$1&county=$2&city=$3 [NC,QSA]
+    RewriteRule ^([\/a-z0-9%\s-]+)~P([0-9]*)\.html$ pharmacy_info.php?fid=$2 [NC,QSA]
+    RewriteRule ^([a-z0-9%\s-]+)~H([0-9]*)\.html$ hospital_info.php?fid=$2 [NC,QSA]
+    RewriteRule ^-(['A-Za-z0-9%\s]+)-([A-Za-z0-9%\s]+)\.html$ pill.php?pill=$1&city=$2 [NC,QSA]

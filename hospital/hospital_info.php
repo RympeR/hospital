@@ -64,6 +64,7 @@
              <?php
                     define('SITE_KEY', '6LfJYOkUAAAAAM6JHJ-MbRZTapj7wB68pbutQCwn');
                     define('SECRET_KEY', '6LfJYOkUAAAAAOTKrQnRx7iaDBgg9OBgyEmn5NJo');
+                    $name = "";
                     $servername = "localhost";
                     $username = "admin_admin";
                     $password = "cJ9Mhri450";
@@ -75,15 +76,16 @@
                     if(!$conn->set_charset("utf8")){
                         echo "ошибка кодировки";
                     }
-                    $sql = "SELECT *  from hospital_info where state_='".
-                            $_GET['state']."' and county_name='".
-                            $_GET['county']."' and city='".$_GET['city']."' and hospital_name='".$_GET['hospital']."';";
-                    $sql1 = "SELECT * FROM comments where hospital ='".$_GET['hospital']."';";
+                    $sql = "SELECT *  from hospital_info where fid = ".$_GET['fid'].";";
+                    $row1 = $conn->query($sql);
+
+                   
                     // echo $sql;
                     $res = $conn->query($sql);
                     echo "<table border=1>".
                     "<col class='coln1'><col class='coln2'>";
                     while($row = $res->fetch_assoc()){
+                        $name = $row['hospital_name'];
                             echo "<tr>".
                                 "<td class='left'>Hospital Name</td>".
                                 "<td class='right' id='token'>".ucfirst(strtolower($row['hospital_name']))."</td></tr>".
@@ -177,8 +179,9 @@
 
 <div class="comments">
     <div class="wrap">
-				<h2 class="title">Comment about <b><?= $_GET['hospital'] ?></b></h2>
+				<h2 class="title">Comment about <b><?= strtoupper($_GET['hospital']) ?></b></h2>
                 <?php 
+                 $sql1 = "SELECT * FROM comments where id_hospital	 ='".$_GET['fid']."';";
         // if($conn->query($sql1)){
         try {
             $res1 = $conn->query($sql1);
@@ -209,11 +212,12 @@
 			
 		
 			<div class="comment_form">
-				<h3>Write your comment about <b><?= $_GET['hospital'] ?></b>...</h3>
+				<h3>Write your comment about <b><?= strtoupper($_GET['hospital']) ?></b>...</h3>
 
                 <form onsubmit="return false" id="form" name="form" method="POST">
                     <input id ="hide" name="hide" type="hidden" value="">
                     <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                    <input id ="pharm_id" class="input_field_form" name="hosp_id" type="hidden" value="<?= $_GET['fid'] ?>">
                     <h3>Name</h3>
                     <input type="text" class="input_field_form" name="name" placeholder="Name"/>
                     <h3>Email</h3>
@@ -245,8 +249,8 @@
                                 type: "POST",
                                 data: fd,
                                 success: function (data) {
-                                        alert("Your comment successfully added");
-                                        document.location.reload();
+                                    alert("Comment was processed. Reload page to insert new");
+                                        // document.location.reload();
                                         },
                                 processData: false, 
                                 contentType: false   

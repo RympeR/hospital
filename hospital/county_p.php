@@ -5,7 +5,7 @@
 ?>
 	<div class="big-name">
 		<div class="wrap">
-			<h1><?= $_GET['state']?></h1>
+			<h1><?= strtoupper($_GET['state']) ?></h1>
 			<p>It is a long established fact that a reader will be distracted <br />
 by the readable content of a page when looking at its layout.</p>
 		</div>
@@ -28,17 +28,17 @@ by the readable content of a page when looking at its layout.</p>
                             if(!$conn->set_charset("utf8")){
                                 echo "ошибка кодировки";
                             }
-                            $sql = "SELECT DISTINCT COUNTY from pharmacy where STATE='".$_GET['state']."' ORDER BY LEFT(COUNTY, 1);";
+                            $sql = "SELECT DISTINCT COUNTY from pharmacy where STATE='". strtoupper($_GET['state'])."' ORDER BY LEFT(COUNTY, 1);";
                             // echo $sql;
                             $res = $conn->query($sql);
                             while($row = $res->fetch_assoc()){
                                 $sql_county = "SELECT DISTINCT description from county_description_pharmacy where county='".$row["COUNTY"]."' limit 0,1";
                                 $res_county = $conn->query($sql_county);
                                 $row_county = $res_county->fetch_assoc();
-                                echo "<li><a href='/".$_GET['state']."-".$row['COUNTY'].".html'>".
+                                echo "<li><a href='/".$_GET['state']."-". strtolower($row['COUNTY']) .".html'>".
                                 $row['COUNTY']."</a>";
 							}
-							$sql_state = "SELECT DISTINCT description from state_description_pharmacy where state='".$_GET["state"]."' limit 0,1";
+							$sql_state = "SELECT DISTINCT description from state_description_pharmacy where state='". strtoupper($_GET["state"]) ."' limit 0,1";
 							$res_state = $conn->query($sql_state);
 							$row_state = $res_state->fetch_assoc();
                     ?>
@@ -48,7 +48,7 @@ by the readable content of a page when looking at its layout.</p>
 				<div class="country-info">
 					<img src="img/emblem.png" alt="" />
 
-					<h2>Facts about <?= $_GET['state']?></h2>
+					<h2>Facts about <?= strtoupper($_GET['state'])?></h2>
 
 			
 					<div class="cl"></div>

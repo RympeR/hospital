@@ -46,19 +46,19 @@
 					if(!$conn->set_charset("utf8")){
 						echo "ошибка кодировки";
 					}
-						$sql_comment = "SELECT DISTINCT pharmacy, name, comment, date_c from comments_pharmacy limit 0,10";
+						$sql_comment = "SELECT DISTINCT pharmacy, name, comment, date_c from comments_pharmacy  order by date_c desc limit 0,10;";
 
 						$k = 0;
 						$res = $conn->query($sql);
 						$res_comment = $conn->query($sql_comment);
 						
 						while($row = $res_comment->fetch_assoc()){
-							$sql_hospital = "SELECT DISTINCT NAME, STATE, COUNTY, CITY from pharmacy where NAME='".$row['pharmacy']."';";
+							$sql_hospital = "SELECT DISTINCT FID, NAME, STATE, COUNTY, CITY from pharmacy where NAME='".$row['pharmacy']."';";
 							$res_link = $conn->query($sql_hospital);
 							
 							// echo $sql_hospital;
 							while($row_link = $res_link->fetch_assoc()){
-
+								
 								$k++;
 								if ($k%2==1){
 									echo "<div class='slide'>";
@@ -76,9 +76,10 @@
 										<a href="#" class="star"></a>
 									</div><p>
 									'.$row['comment'].'</p>';
-									echo "<a href='pharmacy-".$row_link['STATE']."-".
-										$row_link['COUNTY']."-".$row_link['CITY']."-".$row_link['NAME'].".html'>".
-										$row_link['NAME']."</a>";
+									echo "<a href='/".strtolower($row_link['STATE'])."-".
+									strtolower($row_link['COUNTY'])."-".strtolower($row_link['CITY']).
+									"-".join("-",explode(' ',str_replace('/',' ',strtolower($row_link['NAME'])))).':'.$row_link['FID'].".html'>".
+									strtolower($row_link['NAME'])."</a>";
 									echo "</div>";
 								}else if ($k%2==0){
 									echo '<div class="testimonial green">
@@ -94,9 +95,10 @@
 										<a href="#" class="star"></a>
 									</div>
 									<p>'.$row['comment'].'</p>';
-									echo "<a href='pharmacy-".$row_link['STATE']."-".
-										$row_link['COUNTY']."-".$row_link['CITY']."-".$row_link['NAME'].".html'>".
-										$row_link['NAME']."</a>";
+									echo "<a href='/".strtolower($row_link['STATE'])."-".
+									strtolower($row_link['COUNTY'])."-".strtolower($row_link['CITY']).
+									"-".join("-",explode(' ',preg_replace('/[\s\/-]+/',' ',strtolower($row_link['NAME'])))).':'.$row_link['FID'].".html'>".
+									strtolower($row_link['NAME'])."</a>";
 									echo "</div></div><div class='cl'></div>";
 										// echo "</div>";
 							

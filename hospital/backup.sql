@@ -1,5 +1,7 @@
+drop TABLE if EXISTS hospital_info;
 create table hospital_info(
-	hospital_name varchar(50) PRIMARY KEY,
+	fid int AUTO_INCREMENT PRIMARY KEY,
+	hospital_name varchar(50),
 	address_ varchar(50),
 	city varchar(50),
 	state_ varchar(50),

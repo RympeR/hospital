@@ -64,10 +64,15 @@
         <?php
             define('SITE_KEY', '6LfJYOkUAAAAAM6JHJ-MbRZTapj7wB68pbutQCwn');
             define('SECRET_KEY', '6LfJYOkUAAAAAOTKrQnRx7iaDBgg9OBgyEmn5NJo');
+            $name = "";
             $servername = "localhost";
             $username = "admin_admin";
             $password = "cJ9Mhri450";
             $dbname = "admin_hospital";
+            $sql = "SELECT *  from pharmacy where FID='".
+            $_GET['fid']."';";
+            // echo $sql;
+            
             $conn = new mysqli($servername, $username, $password, $dbname);
             if ($conn->connect_error){
                 die("Connection error: ");
@@ -75,15 +80,13 @@
             if(!$conn->set_charset("utf8")){
                 echo "ошибка кодировки";
             }
-            $sql = "SELECT *  from pharmacy where STATE='".
-                    $_GET['state']."' and COUNTY='".
-                    $_GET['county']."' and CITY='".$_GET['city']."' and NAME='".$_GET['pharmacy']."';";
-            $sql1 = "SELECT * FROM comments_pharmacy where pharmacy ='".$_GET['pharmacy']."';";
-            // echo $sql;
+           
+            
             $res = $conn->query($sql);
             echo "<table border='1'>".
             "<col class='coln1'><col class='coln2'>";
             while($row = $res->fetch_assoc()){
+                    $name = $row['NAME'];
                     echo "<tr>".
                         "<td class='left'>Pharmacy Name</td>".
                         "<td id='token' class='right'>". ucfirst(strtolower($row['NAME']))."</td></tr>".
@@ -141,7 +144,7 @@
     
     <div style="display:none" class="hospital_info">
 		<div class="wrap">
-			<h2 class="title">Facts about <b>Pharmacy</b></h2>
+			<h2 class="title">Facts about <b><?= $name ?></b></h2>
 	
 			<div class="burger">
 				<a href="#" class="to_show">Lorem ipsum dolor sit amet.</a>
@@ -171,9 +174,10 @@
     </div>
             <div class="comments">
                 <div class="wrap">
-				<h2 class="title">Comment about <b>Pharmacy</b></h2>
+				<h2 class="title">Comment about <b><?= $name ?></b></h2>
         <?php
         // if($conn->query($sql1)){
+        $sql1 = "SELECT * FROM comments_pharmacy where id_pharm ='".$_GET['fid']."';";
         try {
             $res1 = $conn->query($sql1);
            
@@ -205,10 +209,11 @@
 ?>
 
 <div class="comment_form">
-				<h3>Write your comment about <b><?= $_GET['pharmacy'] ?></b>...</h3>
+				<h3>Write your comment about <b><?= $name ?></b>...</h3>
 
                 <form onsubmit="return false" id="form" name="form" method="POST">
                     <input id ="hide" class="input_field_form" name="hide" type="hidden" value="">
+                    <input id ="pharm_id" class="input_field_form" name="pharm_id" type="hidden" value="<?= $_GET['fid'] ?>">
                     <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                     <h3>Name</h3>
                     <input type="text" class="input_field_form" name="name" placeholder="Name"/>
@@ -232,6 +237,7 @@
                     <script>
                         window.onload = function(){
                             document.getElementById("hide").value = document.getElementById("token").textContent;
+
                         }
                         function send_data_form(){
                             var fd = new FormData(document.getElementById("form"));
@@ -241,7 +247,7 @@
                                 type: "POST",
                                 data: fd,
                                 success: function (data) {
-                                    alert("Your comment successfully added");
+                                    alert("Comment was processed. Reload page to insert new");
                                    
                                     // document.location.reload();
                                         },

@@ -3,7 +3,7 @@
 ?>
 	<div class="big-name">
 		<div class="wrap">
-			<h1><?= $_GET['county']?></h1>
+			<h1><?= strtoupper($_GET['county']) ?></h1>
 			<p>It is a long established fact that a reader will be distracted <br />
 by the readable content of a page when looking at its layout.</p>
 		</div>
@@ -28,8 +28,8 @@ by the readable content of a page when looking at its layout.</p>
             echo "ошибка кодировки";
         }
         $sql = "SELECT DISTINCT CITY from pharmacy where STATE ='".
-                $_GET['state']."' and COUNTY='".
-                $_GET['county']."';";
+        strtoupper($_GET['state']) ."' and COUNTY='".
+        strtoupper($_GET['county']) ."';";
         // echo $sql;
         $res = $conn->query($sql);
         while($row = $res->fetch_assoc()){
@@ -37,7 +37,7 @@ by the readable content of a page when looking at its layout.</p>
             $res_city = $conn->query($sql_city);
             $row_city = $res_city->fetch_assoc();
             echo "<li><a href='".$_GET['state']."-".$_GET['county']."-".
-            $row['CITY'].".html'>".$row['CITY']."</a></td><td>".$row_city["description"]."</li>";
+            strtolower($row['CITY']) .".html'>".$row['CITY']."</a></td><td>".$row_city["description"]."</li>";
         }
         $sql_state = "SELECT DISTINCT description from county_description_pharmacy where county='".$_GET["county"]."' limit 0,1";
         $res_state = $conn->query($sql_state);
@@ -46,7 +46,7 @@ by the readable content of a page when looking at its layout.</p>
 </ul>
                 </div>
 			<div class="ls-col-right">
-				<h2>Facts about <?= $_GET['county']?></h2>
+				<h2>Facts about <?= strtoupper($_GET['county']) ?></h2>
 				<p><?= $row_state['description'] ?></p>
 			</div>
 			<div class="cl"></div>

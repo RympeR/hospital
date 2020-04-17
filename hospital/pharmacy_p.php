@@ -4,7 +4,7 @@
 
 	<div class="big-name">
 		<div class="wrap">
-			<h1><?= $_GET['city']?></h1>
+			<h1><?= strtoupper($_GET['city'])?></h1>
 			<p>It is a long established fact that a reader will be distracted <br />
 by the readable content of a page when looking at its layout.</p>
 		</div>
@@ -29,39 +29,38 @@ by the readable content of a page when looking at its layout.</p>
                 if(!$conn->set_charset("utf8")){
                     echo "ошибка кодировки";
                 }
-                $sql = "SELECT NAME from pharmacy where STATE='".
-                        $_GET['state']."' and COUNTY='".
-                        $_GET['county']."' and CITY='".$_GET['city']."';";
+                $sql = "SELECT DISTINCT NAME, FID from pharmacy where STATE='".
+                strtoupper($_GET['state'])."' and COUNTY='".
+                strtoupper($_GET['county'])."' and CITY='".strtoupper($_GET['city'])."';";
                 // echo $sql;
                 $res = $conn->query($sql);
 
                 while($row = $res->fetch_assoc()){
-                    echo '<li><a href= "pharmacy-'.$_GET['state']."-".
-                    $_GET['county']."-".$_GET['city']."-".$row['NAME'].'.html">'.$row['NAME']."</a></li>";
+                    echo '<li><a href= "/'.$_GET['state']."-".
+                    $_GET['county']."-".$_GET['city']."-".join("-",explode(' ',strtolower($row['NAME']))).'~P'.$row['FID'].'.html">'.$row['NAME']."</a></li>";
                 }
 
                 echo "</ul><br>";
                 echo "<h2>List of Hospital's</h2>";
                 echo "<ul>";
-                $sql = "SELECT hospital_name from hospital_info where state_='".
-                $_GET['state']."' and county_name='".
-                $_GET['county']."' and city='".$_GET['city']."';";
+                $sql = "SELECT DISTINCT hospital_name, fid from hospital_info where state_='".
+                strtoupper($_GET['state']) ."' and county_name='".
+                strtoupper($_GET['county']) ."' and city='". strtoupper($_GET['city']) ."';";
                 // echo $sql;
                 $res = $conn->query($sql);
 
                 while($row = $res->fetch_assoc()){
-                    echo '<li><a href="hospital-'.$_GET['state']."-".$_GET['county'].
-                    "-".$_GET['city']."-".$row['hospital_name'].'.html">'.$row['hospital_name']."</a></li>";
+                    echo '<li><a href="/'.$_GET['state']."-".$_GET['county']."-".$_GET['city']."-".join("-",explode(' ',strtolower($row['hospital_name']))).'~H'.$row['fid'].'.html">'.$row['hospital_name']."</a></li>";
                 }
-                $sql_state = "SELECT DISTINCT description from city_description_pharmacy where city='".$_GET["state"]."' limit 0,1";
+                $sql_state = "SELECT DISTINCT description from city_description_pharmacy where city='".strtoupper($_GET["state"])."' limit 0,1";
                 $res_state = $conn->query($sql_state);
                 $row_state = $res_state->fetch_assoc();
-                ?>
+            ?>
                 <br>
                 </ul>
         
         <?php 
-            $sql_pill = "SELECT DISTINCT pill_name from pills where city='".$_GET["city"]."';";
+            $sql_pill = "SELECT DISTINCT pill_name from pills where city='".strtoupper($_GET["city"])."';";
             $res_pill = $conn->query($sql_pill);
             ?>
             <h2>Pill's list</h2>
@@ -70,7 +69,7 @@ by the readable content of a page when looking at its layout.</p>
             
             <?php 
             while ($row = $res_pill->fetch_assoc()){?>
-                <li><a href="pill-<?= $row["pill_name"]; ?>-<?=$_GET['city']?>.html"><?= $row["pill_name"];?></a></li>
+                <li><a href="-<?= $row["pill_name"]; ?>-<?=$_GET['city']?>.html"><?= $row["pill_name"] ?></a></li>
         <?php 
             }?>
             </ul>
@@ -79,7 +78,7 @@ by the readable content of a page when looking at its layout.</p>
             <div class="country-info">
 					<img src="img/emblem.png" alt="" />
 
-					<h2>Facts about <?= $_GET['city']?></h2>
+					<h2>Facts about <?= strtoupper($_GET['city'])?></h2>
 
 			
 					<div class="cl"></div>

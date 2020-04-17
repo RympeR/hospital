@@ -73,7 +73,7 @@
         if(!$conn->set_charset("utf8")){
             echo "ошибка кодировки";
         }
-        $sql = "SELECT DISTINCT * FROM pills where pill_name='".$_GET['pill']."' and city='".$_GET['city']."';";
+        $sql = "SELECT DISTINCT * FROM pills where pill_name='".$_GET['pill']."' and city='".strtoupper($_GET['city'])."';";
         $res = $conn->query($sql);
         $row = $res->fetch_assoc();
     ?>
@@ -84,8 +84,8 @@
                 "<col class='coln1'><col class='coln2'>";
                 echo "<tr><td class='left'>Pill name</td><td id='token' class='right'>".$_GET['pill']."</td></tr>";
                 echo "<tr><td class='left'>Amount</td><td class='right'>".$row['amount']."</td></tr>";
-                echo "<tr><td class='left'>Price</td><td class='right'>".$_GET['price']."</td></tr>";
-                echo "<tr><td class='left'>Description</td><td class='right'>".$_GET['description']."</td></tr>";
+                echo "<tr><td class='left'>Price</td><td class='right'>".$row['price']."</td></tr>";
+                echo "<tr><td class='left'>Description</td><td class='right'>".$row['description']."</td></tr>";
                 echo "</table>";
             ?>
            
@@ -163,7 +163,7 @@
                                     type: "POST",
                                     data: fd,
                                     success: function (data) {
-                                            alert(data);
+                                            alert("Data was processed. Reload page to insert new");
                                             // document.location.reload();
                                             },
                                     processData: false, 

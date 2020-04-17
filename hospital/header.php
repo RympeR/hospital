@@ -17,8 +17,15 @@
 		<div class="wrap">
 			<a href="/" class="logo"><img src="/img/logo_head.png" alt="" /></a>
 			<div class="search">
-				<input type="text" name="" value="" placeholder="Find a Hospital" />
-				<button></button>
+				
+
+
+					<input type="text" name="search" id="search" value=""  placeholder="Find a Hospital" />
+					<button></button>
+					<ul class="list-group" id="list"></ul>
+				
+						
+				</form>
 			</div>
 			<div class="menu">
 				<a href="states.html">States</a>
@@ -31,3 +38,77 @@
 			<div class="cl"></div>
 		</div>
 	</div>
+	<script>
+		const people = [
+			{'name' : 'rock'},
+			{'name' : 'brock'},
+		];
+		var list = document.getElementById("list");
+		var search = document.getElementById("search");
+
+		function set_list(group){
+			clear_list();
+			for(const person of group){
+				const item = document.createElement('li');
+				const text = document.createTextNode(person.name);
+				item.appendChild(text);
+				list.appendChild(item);
+
+			}
+			if (group.length==0){
+				setNoResults();
+			}
+		}
+		function getRelevancy(value, searchTerm){
+			if (value === searchTerm){
+				return 2;
+			} else if (value.startsWith(searchTerm)){
+				return 1;
+			}else if (value.includes(searchTerm)){
+				return 0;
+			}else {
+				return -1;
+			}
+
+		}
+		function clear_list(){
+			while (list.firstChild){
+				list.removeChild(list.firstChild);
+			}
+		}
+		function setNoResults(){
+			const item = document.createElement('li');
+			const text = document.createTextNode("No result");
+			item.appendChild(text);
+			list.appendChild(item);
+		}
+	
+		search.addEventListener('input', (event) => {
+			var value = event.target.value;
+			if (value && value.trim().length > 0){
+				value = value.trim().toLowerCase();
+				set_list(people.filter(person => {
+					return person.name.includes(value);
+				}).sort((pearsonA, pearsonB) => {
+					return getRelevancy(pearsonB.name, value)- getRelevancy(pearsonA.name, value);
+				}));
+			}else{
+				clear_list();
+			}
+		})
+		
+	</script>
+	 <?php 
+	  $servername = "localhost";
+	  $username = "admin_admin";
+	  $password = "cJ9Mhri450";
+	  $dbname = "admin_hospital";	
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        if ($conn->connect_error){
+            die("Connection error: ");
+        }
+        if(!$conn->set_charset("utf8")){
+            echo "ошибка кодировки";
+        }
+	
+	?> 
